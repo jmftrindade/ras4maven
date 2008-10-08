@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="RAS XML Editor"
+            extensions="xml"
+            icon="icons/sample.gif"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="br.ufrgs.inf.ras.editors.RASXMLEditor"
+            id="br.ufrgs.inf.ras.editors.RASXMLEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="RAS"
+            id="RASWizardCategory_ID">
+      </category>
+      <wizard
+            name="New Reusable Asset"
+            icon="icons/sample.gif"
+            category="RASWizardCategory_ID"
+            class="br.ufrgs.inf.ras.wizards.NewRASFileWizard"
+            id="br.ufrgs.inf.ras.wizards.NewRASFileWizard">
+      </wizard>
+   </extension>
+
+</plugin>
