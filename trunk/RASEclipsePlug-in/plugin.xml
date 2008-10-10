@@ -5,12 +5,20 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="RAS XML Editor"
+            class="br.ufrgs.inf.ras.editors.RASManifestMultiPageEditor"
+            contributorClass="br.ufrgs.inf.ras.editors.RASManifestMultiPageEditorContributor"
             extensions="xml"
             icon="icons/sample.gif"
+            id="br.ufrgs.inf.ras.editors.RASManifestMultiPageEditor"
+            name="RAS Manifest Editor">
+      </editor>
+      <editor
+            class="br.ufrgs.inf.ras.editors.xml.RASXMLEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="br.ufrgs.inf.ras.editors.RASXMLEditor"
-            id="br.ufrgs.inf.ras.editors.RASXMLEditor">
+            extensions="xml"
+            icon="icons/sample.gif"
+            id="br.ufrgs.inf.ras.editors.xml.RASXMLEditor"
+            name="RAS XML Editor">
       </editor>
    </extension>
    <extension
@@ -20,12 +28,26 @@
             id="RASWizardCategory_ID">
       </category>
       <wizard
-            name="New Reusable Asset"
+            name="New RAS Manifest"
             icon="icons/sample.gif"
             category="RASWizardCategory_ID"
             class="br.ufrgs.inf.ras.wizards.NewRASFileWizard"
             id="br.ufrgs.inf.ras.wizards.NewRASFileWizard">
       </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <wizard
+            category="RASWizardCategory_ID"
+            class="org.eclipse.ui.wizards.datatransfer.ZipFileExportWizard"
+            icon="icons/sample.gif"
+            id="br.ufrgs.inf.ras.wizards.ExportRASFileWizard"
+            name="RAS Asset">
+      </wizard>
+      <category
+            id="RASWizardCategory_ID"
+            name="RAS">
+      </category>
    </extension>
 
 </plugin>

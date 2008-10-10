@@ -41,7 +41,7 @@ public class NewRASFileWizardPage extends WizardPage {
 	public NewRASFileWizardPage(ISelection selection) {
 		super("wizardPage");
 		setTitle("Multi-page Editor File");
-		setDescription("This wizard creates a new file with *.ras extension that can be opened by a multi-page editor.");
+		setDescription("This wizard creates a new RAS manifest with *.xml extension that can be opened by the RAS Manifest editor.");
 		this.selection = selection;
 	}
 
@@ -109,7 +109,7 @@ public class NewRASFileWizardPage extends WizardPage {
 				containerText.setText(container.getFullPath().toString());
 			}
 		}
-		fileText.setText("new_file.ras");
+		fileText.setText("rasset.xml");
 	}
 
 	/**
@@ -162,8 +162,8 @@ public class NewRASFileWizardPage extends WizardPage {
 		int dotLoc = fileName.lastIndexOf('.');
 		if (dotLoc != -1) {
 			String ext = fileName.substring(dotLoc + 1);
-			if (ext.equalsIgnoreCase("ras") == false) {
-				updateStatus("File extension must be \"ras\"");
+			if (ext.equalsIgnoreCase("xml") == false) {
+				updateStatus("File extension must be \"xml\"");
 				return;
 			}
 		}
