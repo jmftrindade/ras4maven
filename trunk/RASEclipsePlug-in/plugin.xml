@@ -5,7 +5,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="br.ufrgs.inf.ras.editors.RASManifestMultiPageEditor"
+            class="br.ufrgs.inf.ras.editors.AssetFileEditor"
             contributorClass="br.ufrgs.inf.ras.editors.RASManifestMultiPageEditorContributor"
             extensions="xml"
             icon="icons/sample.gif"
