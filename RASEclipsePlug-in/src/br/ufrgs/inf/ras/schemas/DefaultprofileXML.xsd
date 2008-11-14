@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:defaultprofile="http://defaultprofile.ecore" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://defaultprofile.ecore">
+  <xsd:annotation>
+    <xsd:documentation>The Default Profile is a direct implementation of the Core RAS defined in the specification.
+
+Many assets can be packaged using the Default Profile, such as a business process, an Eclipse plug-in, a model, ...</xsd:documentation>
+  </xsd:annotation>
+  <xsd:complexType name="Classification">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. context
+2. descriptorGroup
+
+This node represents the classification section of the asset.
+
+Each asset is described by one or more groups of {name, value} pair descriptors called descriptor groups. 
+
+Each descriptor group may be defined by a Classification Schema. The classification section contains sets of descriptors that are defined by different schemas (at least one such set).
+
+The classification section also identifies the context(s) for which the asset may be relevent or reused.
+
+This model does not reflect all possible classification schemas. To accomplish this the DescriptorGroup may reference any schema that is external to the asset's specification.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="descriptorGroup" type="defaultprofile:DescriptorGroup"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="context" type="defaultprofile:Context"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Classification" type="defaultprofile:Classification">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. context
+2. descriptorGroup
+
+This node represents the classification section of the asset.
+
+Each asset is described by one or more groups of {name, value} pair descriptors called descriptor groups. 
+
+Each descriptor group may be defined by a Classification Schema. The classification section contains sets of descriptors that are defined by different schemas (at least one such set).
+
+The classification section also identifies the context(s) for which the asset may be relevent or reused.
+
+This model does not reflect all possible classification schemas. To accomplish this the DescriptorGroup may reference any schema that is external to the asset's specification.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Asset">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+association order is (these are role names)
+1. profile
+2. description
+3. classification
+4. solution
+5. usage
+6. relatedAsset
+
+This is a descriptive container for an asset's artifacts. The artifacts may include models, source code, requirements, test cases, documentation, and so on.
+
+Every RAS manifest document begins with a single Asset element.  This element defines the identity of the reusable software asset.
+
+An asset package is always in RAS format.  However, it may not be RAS-compliant, meaning it passes all integrity constraints as documented in RAS (e.g., required content supplied).
+
+An asset package contains or references the artifacts of the asset itself. The artifacts of the asset are the things that are actually reused. Some artifacts are descriptive content which helps the Asset Conumer understand the asset, and provide guidance on how to apply the asset. This guidance may be in the form of documentation, or may be executable install programs or scripts that automate the injection of an asset's artifacts into another project (such binaries can be included as part of the descriptive content of the asset's package).
+
+Assets vary in their size, complexity, and variability.
+
+The asset package, as a whole, should provide enough information to allow the Asset Consumer to decide if he/she wants to purchase/use the asset.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="classification" type="defaultprofile:Classification"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="solution" type="defaultprofile:Solution"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="usage" type="defaultprofile:Usage"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="relatedAsset" type="defaultprofile:RelatedAsset"/>
+      <xsd:element maxOccurs="1" minOccurs="1" name="profile" type="defaultprofile:Profile"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The name identifies the asset in a few words and is intended for human consumption, whereas the id attribute is expected to contain a globally unique identifier and is used by tooling to distinguish assets. 
+An asset's name and short description are typically the first pieces of information that potential consumers see when searching asset repositories. An asset's name should reflect the general solution strategy of the asset and optionally the problem that it addresses.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="id" type="xsd:string"/>
+    <xsd:attribute name="date" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The date attribute contains a valid date using the default XML format (YYYY-MM-DD).  The date indicates the date that the asset is ready to be used by asset consumers.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="state" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The state attribute indicates the state that the asset is currently in. This is intended primarily for asset certification workflows as an asset is undergoing reviews in preparation to be published in a repository.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="version" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The asset's version attribute can be any string and is used to compare two assets with the same id attribute.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="accessRights" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The asset's access rights attribute can be any string which describes the permissions of asset consumers for interacting with the asset such as viewing or using.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="shortDescription" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The short description should be suitable for use in a line item where multiple asset names and short descriptions are displayed to a potential consumer.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element name="Asset" type="defaultprofile:Asset">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+association order is (these are role names)
+1. profile
+2. description
+3. classification
+4. solution
+5. usage
+6. relatedAsset
+
+This is a descriptive container for an asset's artifacts. The artifacts may include models, source code, requirements, test cases, documentation, and so on.
+
+Every RAS manifest document begins with a single Asset element.  This element defines the identity of the reusable software asset.
+
+An asset package is always in RAS format.  However, it may not be RAS-compliant, meaning it passes all integrity constraints as documented in RAS (e.g., required content supplied).
+
+An asset package contains or references the artifacts of the asset itself. The artifacts of the asset are the things that are actually reused. Some artifacts are descriptive content which helps the Asset Conumer understand the asset, and provide guidance on how to apply the asset. This guidance may be in the form of documentation, or may be executable install programs or scripts that automate the injection of an asset's artifacts into another project (such binaries can be included as part of the descriptive content of the asset's package).
+
+Assets vary in their size, complexity, and variability.
+
+The asset package, as a whole, should provide enough information to allow the Asset Consumer to decide if he/she wants to purchase/use the asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Solution">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true&#13;
+&#13;
+property order is (these are role names)&#13;
+1. artifact&#13;
+&#13;
+An asset provides a solution, which is found in a collection of artifacts. The &lt;solution&gt; element in a manifest is a simple container for all the artifact references of the asset.  It is a required element and specifies no attributes.  The &lt;solution&gt; element specifies only &lt;artifact&gt; child elements.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="artifact" type="defaultprofile:Artifact"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Solution" type="defaultprofile:Solution">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true&#13;
+&#13;
+property order is (these are role names)&#13;
+1. artifact&#13;
+&#13;
+An asset provides a solution, which is found in a collection of artifacts. The &lt;solution&gt; element in a manifest is a simple container for all the artifact references of the asset.  It is a required element and specifies no attributes.  The &lt;solution&gt; element specifies only &lt;artifact&gt; child elements.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Artifact">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true&#13;
+&#13;
+property order is (these are role names)&#13;
+1. description&#13;
+2. artifactContext&#13;
+3. artifactDependency&#13;
+4. variabilityPoint&#13;
+5. artifactType&#13;
+6. artifact&#13;
+&#13;
+An artifact is a work product that can be created, stored and manipulated by asset producers/consumers and by tools. An artifact is either an actual file located in the asset's package, or represents a logical entity that contains at least one child artifact that is an actual file.  An &lt;artifact&gt; element must specify minimally a name or a reference attribute.  The name is required for artifacts that represent logical entities.  The reference is required for artifacts that specify actual file or work products that are part of the asset's packaging.&#13;
+&#13;
+An artifact may specify child artifacts.  A child artifact uses the same &lt;artifact&gt; element.  If the artifact is a logical artifact then it must specify a name and have at least one descendent artifact that is an actual file reference.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="artifactContext" type="defaultprofile:ArtifactContext"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="artifactDependency" type="defaultprofile:ArtifactDependency"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="artifact" type="defaultprofile:Artifact"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="variabilityPoint" type="defaultprofile:VariabilityPoint"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="artifactType" type="defaultprofile:ArtifactType"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="reference" type="defaultprofile:Reference"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The name, type, and reference attributes are optional. This was done to allow large numbers of artifacts to be added by tooling but for which each specific name may not be known. In this scenario the name may have become the filename, but that would be redundant with the reference attribute. The reference attribute remains optional to allow &lt;artifact&gt; elements to contain other &lt;artifact&gt; elements and not reference anything on the filesystem or elsewhere.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="type" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>Artifacts that represent actual files can be of any type.  That is they can be any type of file (binary, plain text, etc.).  An artifact referenced in a manifest can optionally declare a primary type, which is captured in the type attribute.  The primary type can affect how tools process the artifact.  In addition to a primary type an artifact can specify any number of secondary types. Each secondary type is specified with a &lt;artifact-type&gt; child element (see &lt;artifact-type&gt;).&#13;
+In practice the primary types tend to map to file extensions. For instance if we had a file with the name web.xml its primary type is XML and its secondary type may be J2EE Web Configuration.&#13;
+The primary type list maps file extensions to type names. There may be many file extensions to the same type name. It is also possible to have many type names to the same file extension. In this case the tooling should provide a way for the user to reconcile. For instance, you may have a file named usecases.doc. The .doc extension may map to a "Microsoft Word" type and it may map to a "WordPerfect" type.&#13;
+</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="version" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>This optional attribute is used to identify an artifact's version.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="digestName" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>With ever-increasing needs for security an artifact may be encrypted with a specific algorithm. The digest-name attribute contains the name from such encryption activities.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="digestValue" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>With ever-increasing needs for security an artifact may be encrypted with a specific algorithm. The digest-value attribute contains the value from such encryption activities.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="accessRights" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>A specific artifact may have its own permission and usage rights associated with it. The access-rights attribute captures artifact-level permission information. RAS does not specify the format of this permission information.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element name="Artifact" type="defaultprofile:Artifact">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true&#13;
+&#13;
+property order is (these are role names)&#13;
+1. description&#13;
+2. artifactContext&#13;
+3. artifactDependency&#13;
+4. variabilityPoint&#13;
+5. artifactType&#13;
+6. artifact&#13;
+&#13;
+An artifact is a work product that can be created, stored and manipulated by asset producers/consumers and by tools. An artifact is either an actual file located in the asset's package, or represents a logical entity that contains at least one child artifact that is an actual file.  An &lt;artifact&gt; element must specify minimally a name or a reference attribute.  The name is required for artifacts that represent logical entities.  The reference is required for artifacts that specify actual file or work products that are part of the asset's packaging.&#13;
+&#13;
+An artifact may specify child artifacts.  A child artifact uses the same &lt;artifact&gt; element.  If the artifact is a logical artifact then it must specify a name and have at least one descendent artifact that is an actual file reference.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Usage">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=false
+
+property order is (these are role names)
+1. artifactActivity
+2. contextRef
+3. assetActivity</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="contextRef" type="defaultprofile:ContextRef"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="artifactActivity" type="defaultprofile:ArtifactActivity"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="assetActivity" type="defaultprofile:AssetActivity"/>
+    </xsd:sequence>
+    <xsd:attribute name="artifact" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>{optional}</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element name="Usage" type="defaultprofile:Usage">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=false
+
+property order is (these are role names)
+1. artifactActivity
+2. contextRef
+3. assetActivity</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="RelatedAsset">
+    <xsd:annotation>
+      <xsd:documentation>xmi:contentType=mixed</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="relationshipType" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>OPTIONAL</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="assetId" type="xsd:string"/>
+    <xsd:attribute name="assetVersion" type="xsd:string"/>
+    <xsd:attribute name="artifact" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="RelatedAsset" type="defaultprofile:RelatedAsset">
+    <xsd:annotation>
+      <xsd:documentation>xmi:contentType=mixed</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Context">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. description
+2. descriptorGroup</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="descriptorGroup" type="defaultprofile:DescriptorGroup"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>{required}</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element name="Context" type="defaultprofile:Context">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. description
+2. descriptorGroup</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ContextRef">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. activity</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="activity" type="defaultprofile:Activity"/>
+    </xsd:sequence>
+    <xsd:attribute name="context" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="ContextRef" type="defaultprofile:ContextRef">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. activity</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="DescriptorGroup">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true&#13;
+&#13;
+property order is (these are role names)&#13;
+1. description&#13;
+2. descriptor&#13;
+&#13;
+A descriptor group is simply a container for a related group of &lt;descriptor&gt;s. A &lt;description&gt; child element can be used to provide a description of the descriptor group.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="contained" type="defaultprofile:DescriptorGroup"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="freeFormValue" type="defaultprofile:FreeFormValue"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="freeFormDescriptor" type="defaultprofile:FreeFormDescriptor"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The name attribute describes the group of &lt;descriptor&gt;s.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="artifact" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The reference contains a pointer to a document, which describe the profile in more detail.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="nodeDescriptor" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>ordered</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="classificationSchema" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="DescriptorGroup" type="defaultprofile:DescriptorGroup">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true&#13;
+&#13;
+property order is (these are role names)&#13;
+1. description&#13;
+2. descriptor&#13;
+&#13;
+A descriptor group is simply a container for a related group of &lt;descriptor&gt;s. A &lt;description&gt; child element can be used to provide a description of the descriptor group.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="FreeFormDescriptor">
+    <xsd:annotation>
+      <xsd:documentation>xmi:contentType=mixed&#13;
+&#13;
+A &lt;descriptor&gt; is a simple key/value pair that emphasizes certain qualities and characteristics of the asset. Often these are searchable and may be used for asset discovery and evaluation.&#13;
+&#13;
+The value is captured as the elements content in plain text. A &lt;descriptor&gt; may be associated with a specific &lt;context&gt; through the context association.  This means that the key and value should be thought of in the specified &lt;context&gt;.  The value of the context association must reference an existing id of a &lt;context&gt; element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="defaultprofile:Descriptor"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="FreeFormDescriptor" type="defaultprofile:FreeFormDescriptor">
+    <xsd:annotation>
+      <xsd:documentation>xmi:contentType=mixed&#13;
+&#13;
+A &lt;descriptor&gt; is a simple key/value pair that emphasizes certain qualities and characteristics of the asset. Often these are searchable and may be used for asset discovery and evaluation.&#13;
+&#13;
+The value is captured as the elements content in plain text. A &lt;descriptor&gt; may be associated with a specific &lt;context&gt; through the context association.  This means that the key and value should be thought of in the specified &lt;context&gt;.  The value of the context association must reference an existing id of a &lt;context&gt; element.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ArtifactContext">
+    <xsd:annotation>
+      <xsd:documentation>An ArtifactContext&gt; element associates a Context to an Artifact.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute name="context" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="ArtifactContext" type="defaultprofile:ArtifactContext">
+    <xsd:annotation>
+      <xsd:documentation>An ArtifactContext&gt; element associates a Context to an Artifact.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ArtifactDependency">
+    <xsd:annotation>
+      <xsd:documentation>An ArtifactDependency identifies a dependent Artifact.  The dependent Artifact must be another Artifact defined in the manifest.  See the Artifact description. This is a child element to the Artifact element. The dependencyType attribute describes artifact dependencies such as design time dependency or a compile time or runtime.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="dependencyKind" type="defaultprofile:DependencyKind"/>
+    </xsd:sequence>
+    <xsd:attribute name="dependencyType" type="xsd:string"/>
+    <xsd:attribute name="artifact" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="ArtifactDependency" type="defaultprofile:ArtifactDependency">
+    <xsd:annotation>
+      <xsd:documentation>An ArtifactDependency identifies a dependent Artifact.  The dependent Artifact must be another Artifact defined in the manifest.  See the Artifact description. This is a child element to the Artifact element. The dependencyType attribute describes artifact dependencies such as design time dependency or a compile time or runtime.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ArtifactActivity">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. activity</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="activity" type="defaultprofile:Activity"/>
+    </xsd:sequence>
+    <xsd:attribute name="context" type="xsd:string"/>
+    <xsd:attribute name="artifact" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="ArtifactActivity" type="defaultprofile:ArtifactActivity">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. activity</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="AssetActivity">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. activity</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="activity" type="defaultprofile:Activity"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AssetActivity" type="defaultprofile:AssetActivity">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. activity</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Activity">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. description
+2. activity
+3. variabilityPointBinding</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="activity" type="defaultprofile:Activity"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="variabilityPointBinding" type="defaultprofile:VariabilityPointBinding"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="activityParameter" type="defaultprofile:ActivityParameter"/>
+    </xsd:sequence>
+    <xsd:attribute name="task" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>{required}</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="role" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>{optional}</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="taskType" type="xsd:string"/>
+    <xsd:attribute name="artifact" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>{optional}</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element name="Activity" type="defaultprofile:Activity">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. description
+2. activity
+3. variabilityPointBinding</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="VariabilityPoint">
+    <xsd:annotation>
+      <xsd:documentation>xmi:contentType=mixed&#13;
+&#13;
+A &lt;variability-point&gt; is a conceptual spot in an artifact that is expected to be altered by the asset consumer.  It describes where and what in the artifact can be modified.  Each &lt;variability point&gt; specifies a name, which describes it and an identifier, which is used to reference it from other elements in the manifest.  A variability point may be associated with a context and its optional context association must therefore specify a valid id of a &lt;context&gt; element in the document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>{required}</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="context" type="xsd:string"/>
+    <xsd:attribute name="artifact" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="VariabilityPoint" type="defaultprofile:VariabilityPoint">
+    <xsd:annotation>
+      <xsd:documentation>xmi:contentType=mixed&#13;
+&#13;
+A &lt;variability-point&gt; is a conceptual spot in an artifact that is expected to be altered by the asset consumer.  It describes where and what in the artifact can be modified.  Each &lt;variability point&gt; specifies a name, which describes it and an identifier, which is used to reference it from other elements in the manifest.  A variability point may be associated with a context and its optional context association must therefore specify a valid id of a &lt;context&gt; element in the document.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="VariabilityPointBinding">
+    <xsd:attribute name="bindingRule" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>{required}</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="variabilityPoint" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="VariabilityPointBinding" type="defaultprofile:VariabilityPointBinding"/>
+  <xsd:complexType name="Profile">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. description
+2. relatedProfile
+
+An asset is defined by one profile; a profile describes the asset's type. The profile can have different versions and should declare its lineage or ancestry from other profiles. The related-profile captures information on the profile's lineage.
+
+The Profile element in the XML schema includes information about the format of the manifest itself.  It identifies exactly which version of this specification and which RAS profile should be used to validate the manifest document for compliance.  A profile defines the structure and semantics of an asset's manifest document.  Every RAS manifest document must identify the profile that can be used to validate it.  Every profile is derived from another profile with the one exception being the original Core profile, which was defined by the first version of the RAS and for which there is no XML Schema produced. Profiles can extend directly from Core RAS or from any other profile such as the Default Profile for version 2.1. These derived profiles can only add elements and attributes to the manifest's XML Schema, and/or associate new semantics to existing elements.  They cannot remove elements or attributes from the XML Schema.  In general derived profiles are more restrictive. This attempts to make it easier for tools to gracefully handle assets created with profiles defined after the tooling was created.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="relatedProfile" type="defaultprofile:RelatedProfile"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="history" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>Each profile specifies a human readable name that reflects the purpose or scope of the profile.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="idHistory" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The id-history is a composite key that is made up of the profile id followed by the profile ids of all the profiles that it is derived from.  A profile is derived from exactly one parent profile with the notable exception of the first and original Core profile introduced with the RAS 1.0 specification.
+As an example the following is the id history for the RAS Default profile version 2.1: 
+F1C842AD-CE85-4261-ACA7-178C457018A1::31E5BFBF-B16E-4253-8037-98D70D07F35F
+It indicates that the profile identified by: "F1C842AD-CE85-4261-ACA7-178C457018A1" is derived from the profile identified by "31E5BFBF-B16E-4253-8037-98D70D07F35F", which is the Core profile defined in the first version of the RAS specification.
+If a new profile was defined a new GUID would be generated and it would be pre-pended to the id-history of the profile that it derived from.  For example it might be:
+F8C49799-25C9-4312-B798-D5D2E1FBC656::F1C842AD-CE85-4261-ACA7-178C457018A1::31E5BFBF-B16E-4253-8037-98D70D07F35F
+This new profile defines a new set of elements, attributes and semantics that extend those already defined by all of the other profiles in the id-history.
+</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="versionMajor" type="xsd:int">
+      <xsd:annotation>
+        <xsd:documentation>The version-major and version-minor attributes help identify the profile version, and in particular helps distinguish it from previous profiles with the same name.  These attributes are integers.  Often these two values are combined together with a period, and form what appears to be a floating-point number.  For example a version major of 2, and version minor of 1 might be written as version 2.1.  
+Changes in the version major and version minor values should be made when a profile is updated and when its name remains the same.  This would be the case when a profile is updated but its target purpose or scope, and hence name remains the same.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="versionMinor" type="xsd:int">
+      <xsd:annotation>
+        <xsd:documentation>The version-major and version-minor attributes help identify the profile version, and in particular helps distinguish it from previous profiles with the same name.  These attributes are integers.  Often these two values are combined together with a period, and form what appears to be a floating-point number.  For example a version major of 2, and version minor of 1 might be written as version 2.1.  
+Changes in the version major and version minor values should be made when a profile is updated and when its name remains the same.  This would be the case when a profile is updated but its target purpose or scope, and hence name remains the same.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="artifact" type="xsd:string"/>
+    <xsd:attribute name="element" type="xsd:string"/>
+    <xsd:attribute name="classificationSchema" type="xsd:string"/>
+    <xsd:attribute name="dependencyKind" type="xsd:string"/>
+    <xsd:attribute name="requiredElement" type="xsd:string"/>
+    <xsd:attribute name="requiredAttribute" type="xsd:string"/>
+    <xsd:attribute name="semanticConstraint" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="Profile" type="defaultprofile:Profile">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. description
+2. relatedProfile
+
+An asset is defined by one profile; a profile describes the asset's type. The profile can have different versions and should declare its lineage or ancestry from other profiles. The related-profile captures information on the profile's lineage.
+
+The Profile element in the XML schema includes information about the format of the manifest itself.  It identifies exactly which version of this specification and which RAS profile should be used to validate the manifest document for compliance.  A profile defines the structure and semantics of an asset's manifest document.  Every RAS manifest document must identify the profile that can be used to validate it.  Every profile is derived from another profile with the one exception being the original Core profile, which was defined by the first version of the RAS and for which there is no XML Schema produced. Profiles can extend directly from Core RAS or from any other profile such as the Default Profile for version 2.1. These derived profiles can only add elements and attributes to the manifest's XML Schema, and/or associate new semantics to existing elements.  They cannot remove elements or attributes from the XML Schema.  In general derived profiles are more restrictive. This attempts to make it easier for tools to gracefully handle assets created with profiles defined after the tooling was created.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="RelatedProfile">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. description
+
+This is one of the Profile elements child elements which provides human readable information about each of the profiles in the Profile::idHistory attribute.
+
+This node captures the history of the profile by describing the profile's genealogy.  This element includes many of the same attributes found in the Profile element.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>This should be the name of the profile that is referenced by the profile id in the &lt;profile&gt;::id-history attribute.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="id" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>This id is the profile id for a profile which is an ancestor to the current profile and which is not the &lt;profile&gt; id from this document.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="versionMajor" type="xsd:int">
+      <xsd:annotation>
+        <xsd:documentation>The version-major, and version-minor attributes contain the ancestor profile's version information. </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="versionMinor" type="xsd:int">
+      <xsd:annotation>
+        <xsd:documentation>The version-major, and version-minor attributes contain the ancestor profile's version information. </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="parentId" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The parent-id describes the profile's ancestor from which it was derived.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="artifact" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>The reference contains a pointer to a document, which describe the profile in more detail.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element name="RelatedProfile" type="defaultprofile:RelatedProfile">
+    <xsd:annotation>
+      <xsd:documentation>xmi:ordered=true
+
+property order is (these are role names)
+1. description
+
+This is one of the Profile elements child elements which provides human readable information about each of the profiles in the Profile::idHistory attribute.
+
+This node captures the history of the profile by describing the profile's genealogy.  This element includes many of the same attributes found in the Profile element.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ArtifactType">
+    <xsd:attribute name="type" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="ArtifactType" type="defaultprofile:ArtifactType"/>
+  <xsd:complexType name="DependencyKind">
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="profile" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="DependencyKind" type="defaultprofile:DependencyKind"/>
+  <xsd:complexType name="Description">
+    <xsd:annotation>
+      <xsd:documentation>xmi:contentType=mixed&#13;
+&#13;
+The &lt;description&gt; element is a simple container for a human readable description of the asset.  This description is expected to be about one or two paragraphs in length, however there is no restriction on size specified by this document.  It describes in some detail the problem that the asset addresses and its main solution strategies.&#13;
+It is possible for the content of the &lt;description&gt; element to be formatted with HTML. The &lt;description&gt; element is global in the XML Schema and is referenced in multiple places.&#13;
+&#13;
+This element does not have any attributes but supports multi-line text.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute name="value" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="Description" type="defaultprofile:Description">
+    <xsd:annotation>
+      <xsd:documentation>xmi:contentType=mixed&#13;
+&#13;
+The &lt;description&gt; element is a simple container for a human readable description of the asset.  This description is expected to be about one or two paragraphs in length, however there is no restriction on size specified by this document.  It describes in some detail the problem that the asset addresses and its main solution strategies.&#13;
+It is possible for the content of the &lt;description&gt; element to be formatted with HTML. The &lt;description&gt; element is global in the XML Schema and is referenced in multiple places.&#13;
+&#13;
+This element does not have any attributes but supports multi-line text.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="NodeDescriptor">
+    <xsd:complexContent>
+      <xsd:extension base="defaultprofile:Descriptor">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="specific" type="defaultprofile:NodeDescriptor"/>
+        </xsd:sequence>
+        <xsd:attribute default="false" name="exclusive" type="xsd:boolean"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="NodeDescriptor" type="defaultprofile:NodeDescriptor"/>
+  <xsd:complexType name="ClassificationSchema">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="descriptor" type="defaultprofile:Descriptor"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="profile" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="ClassificationSchema" type="defaultprofile:ClassificationSchema"/>
+  <xsd:complexType name="Descriptor">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:complexType name="Reference">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="referenceKind" type="defaultprofile:ReferenceKind"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="value" type="xsd:string"/>
+    <xsd:attribute name="element" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="Reference" type="defaultprofile:Reference"/>
+  <xsd:complexType name="ReferenceKind">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="ReferenceKind" type="defaultprofile:ReferenceKind"/>
+  <xsd:complexType name="ActivityParameter">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="description" type="defaultprofile:Description"/>
+    </xsd:sequence>
+    <xsd:attribute name="defaultValue" type="xsd:string"/>
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="value" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="ActivityParameter" type="defaultprofile:ActivityParameter"/>
+  <xsd:complexType name="FreeFormValue">
+    <xsd:attribute name="value" type="xsd:string"/>
+    <xsd:attribute name="freeFormDescriptor" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="FreeFormValue" type="defaultprofile:FreeFormValue"/>
+</xsd:schema>

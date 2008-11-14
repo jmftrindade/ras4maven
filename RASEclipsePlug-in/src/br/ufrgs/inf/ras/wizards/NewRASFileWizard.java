@@ -129,7 +129,17 @@ public class NewRASFileWizard extends Wizard implements INewWizard {
 
 	private InputStream openContentStream() {
 		String contents =
-			"This is the initial file contents for *.xml file that should be word-sorted in the Preview page of the multi-page editor";
+			"<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + 
+			"<defaultprofile:Asset xmlns:defaultprofile=\"http://defaultprofile.ecore\"" + 
+			"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" + 
+			"xsi:schemaLocation=\"http://defaultprofile.ecore DefaultprofileXML.xsd\"" +
+			"name=\"\" version=\"\" shortDescription=\"\">" +
+			"<classification></classification>" +
+			"<solution><artifact></artifact></solution>" +
+			"<relatedAsset artifact=\"\" assetId=\"lalalal\" assetVersion=\"\" name=\"\"" +
+			"relationshipType=\"\">" +
+			"<description value=\"\"/>" +
+			"</relatedAsset><profile/></defaultprofile:Asset>";
 		return new ByteArrayInputStream(contents.getBytes());
 	}
 

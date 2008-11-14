@@ -5,13 +5,17 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.forms.FormColors;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -24,7 +28,7 @@ public class Activator extends AbstractUIPlugin {
 
     // The shared instance
     private static Activator plugin;
-    
+
     //Resource bundle.
     private ResourceBundle resourceBundle;
     private FormColors formColors;
@@ -84,8 +88,8 @@ public class Activator extends AbstractUIPlugin {
         }
         return formColors;
     }
-    
-    
+
+
     /*
      * (non-Javadoc)
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
@@ -131,11 +135,11 @@ public class Activator extends AbstractUIPlugin {
     public ResourceBundle getResourceBundle() {
         return resourceBundle;
     }
-    
+
     public Image getImage(String key) {
         return getImageRegistry().get(key);
     }
-    
+
     /**
      * Returns an image descriptor for the image file at the given
      * plug-in relative path
@@ -145,5 +149,19 @@ public class Activator extends AbstractUIPlugin {
      */
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(PLUGIN_ID, path);
+    }
+
+    /**
+     * Utility method to report an error message to the platform log.
+     * 
+     * @param message
+     *            The human-readable message.
+     * @param ex
+     *            The exception, or null if not applicable.
+     */
+    public static void logError(String message, Throwable ex) {
+        IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, message, ex);
+        Bundle bundle = Platform.getBundle(PLUGIN_ID);
+        Platform.getLog(bundle).log(status);
     }
 }
