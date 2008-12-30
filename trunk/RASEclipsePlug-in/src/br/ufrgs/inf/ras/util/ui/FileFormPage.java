@@ -1,4 +1,4 @@
-package at.ssw.fileeditor.util.ui;
+package br.ufrgs.inf.ras.util.ui;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.forms.editor.FormEditor;
@@ -24,10 +24,8 @@ public class FileFormPage extends FormPage {
 	 * Constructor with the underlying multipage form editor.
 	 */
 	public FileFormPage(FileEditor editor) {
-//		super(editor, editor.getSite().getId() + ".formPage", editor
-//				.getPartName());
-        super(editor, "br.ufrgs.inf.fileeditor.formPage", editor
-                .getPartName());
+		super(editor, editor.getSite().getId() + ".formPage", editor
+				.getPartName());
 	}
 	
 	/*

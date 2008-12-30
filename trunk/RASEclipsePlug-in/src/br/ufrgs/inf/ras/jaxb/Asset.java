@@ -135,6 +135,7 @@ public class Asset extends PlatformObject {
      */
     public void setClassification(Classification value) {
         this.classification = value;
+        firePropertyChange();
     }
 
     /**
@@ -159,6 +160,7 @@ public class Asset extends PlatformObject {
      */
     public void setSolution(Solution value) {
         this.solution = value;
+        firePropertyChange();
     }
 
     /**
@@ -183,6 +185,7 @@ public class Asset extends PlatformObject {
      */
     public void setUsage(Usage value) {
         this.usage = value;
+        firePropertyChange();
     }
 
     /**
@@ -236,6 +239,7 @@ public class Asset extends PlatformObject {
      */
     public void setProfile(Profile value) {
         this.profile = value;
+        firePropertyChange();
     }
 
     /**
@@ -260,6 +264,7 @@ public class Asset extends PlatformObject {
      */
     public void setDescription(Description value) {
         this.description = value;
+        firePropertyChange();
     }
 
     /**
@@ -284,6 +289,7 @@ public class Asset extends PlatformObject {
      */
     public void setName(String value) {
         this.name = value;
+        firePropertyChange();
     }
 
     /**
@@ -308,6 +314,7 @@ public class Asset extends PlatformObject {
      */
     public void setId(String value) {
         this.id = value;
+        firePropertyChange();
     }
 
     /**
@@ -332,6 +339,7 @@ public class Asset extends PlatformObject {
      */
     public void setDate(String value) {
         this.date = value;
+        firePropertyChange();
     }
 
     /**
@@ -356,6 +364,7 @@ public class Asset extends PlatformObject {
      */
     public void setState(String value) {
         this.state = value;
+        firePropertyChange();
     }
 
     /**
@@ -380,6 +389,7 @@ public class Asset extends PlatformObject {
      */
     public void setVersion(String value) {
         this.version = value;
+        firePropertyChange();
     }
 
     /**
@@ -404,6 +414,7 @@ public class Asset extends PlatformObject {
      */
     public void setAccessRights(String value) {
         this.accessRights = value;
+        firePropertyChange();
     }
 
     /**
@@ -428,16 +439,17 @@ public class Asset extends PlatformObject {
      */
     public void setShortDescription(String value) {
         this.shortDescription = value;
+        firePropertyChange();
     }
 
-    public void addAssetListener(IAssetListener listener) {
+    public void addListener(IListener listener) {
         if (listeners == null) {
             listeners = new ListenerList();
         }
         listeners.add(listener);
     }
 
-    public void removeAssetListener(IAssetListener listener) {
+    public void removeListener(IListener listener) {
         if (listeners != null) {
             listeners.remove(listener);
             if (listeners.isEmpty()) {
@@ -449,7 +461,7 @@ public class Asset extends PlatformObject {
     private void firePropertyChange() {
         if (listeners != null) {
             for (Object listener : listeners.getListeners()) {
-                ((IAssetListener) listener).assetChanged();
+                ((IListener) listener).objectChanged();
             }
         }
     }

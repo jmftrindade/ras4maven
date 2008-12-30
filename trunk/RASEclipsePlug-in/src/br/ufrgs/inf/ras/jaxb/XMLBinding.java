@@ -1,24 +1,17 @@
 package br.ufrgs.inf.ras.jaxb;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
@@ -80,17 +73,6 @@ public class XMLBinding {
 	static {
 		try {
 			context = JAXBContext.newInstance("br.ufrgs.inf.ras.jaxb");
-			
-//			ByteArrayOutputStream out = new ByteArrayOutputStream();
-//			StreamResult result = new StreamResult("");
-//			result.setOutputStream(out);
-//			context.generateSchema(new SchemaResolver(result));
-//			ByteArrayInputStream in = new ByteArrayInputStream(out
-//					.toByteArray());
-//			SchemaFactory schemaFactory = SchemaFactory
-//					.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-//			Source source = new StreamSource(in, "");
-//			schema = schemaFactory.newSchema(source);
 		} catch (Throwable ex) {
 		    ex.printStackTrace();
 			Activator.logError("Could not initialize JAXB", ex);
@@ -184,6 +166,33 @@ public class XMLBinding {
 			asset.setName(newAsset.getName());
             asset.setVersion(newAsset.getVersion());
             asset.setShortDescription(newAsset.getShortDescription());
+            
+            // classification/descriptorGroup/freeFormDescriptor/description
+            asset.setClassification(newAsset.getClassification());
+            
+            // solution/artifact/description
+            asset.setSolution(newAsset.getSolution());
+            
+            // usage
+            asset.setUsage(newAsset.getUsage());
+            
+            // relatedAsset
+            List<RelatedAsset> raList = newAsset.getRelatedAssets();
+            for (RelatedAsset ra : raList) {
+                asset.getRelatedAssets().add(ra);
+            }
+            
+            // profile
+            asset.setProfile(newAsset.getProfile());
+            
+            // other items...
+            asset.setAccessRights(newAsset.getAccessRights());
+            asset.setDate(newAsset.getDate());
+            asset.setDescription(newAsset.getDescription());
+            asset.setId(newAsset.getId());
+            asset.setState(newAsset.getState());
+            
+            
 		} else if (status.isOK()) {
 		    System.err.println("Not an instance of Asset!");
 		    System.out.println(obj.getClass().getName());

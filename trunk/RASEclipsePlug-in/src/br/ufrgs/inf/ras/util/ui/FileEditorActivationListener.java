@@ -1,4 +1,4 @@
-package at.ssw.fileeditor.util.ui;
+package br.ufrgs.inf.ras.util.ui;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;

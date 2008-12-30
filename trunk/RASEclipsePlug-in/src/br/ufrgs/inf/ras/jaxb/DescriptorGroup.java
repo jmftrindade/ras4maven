@@ -15,7 +15,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.eclipse.core.runtime.ListenerList;
 
 
 /**
@@ -77,6 +80,8 @@ public class DescriptorGroup {
     protected String nodeDescriptor;
     @XmlAttribute
     protected String classificationSchema;
+    @XmlTransient
+    private ListenerList listeners;
 
     /**
      * Gets the value of the description property.
@@ -100,6 +105,7 @@ public class DescriptorGroup {
      */
     public void setDescription(Description value) {
         this.description = value;
+        firePropertyChange();
     }
 
     /**
@@ -211,6 +217,7 @@ public class DescriptorGroup {
      */
     public void setName(String value) {
         this.name = value;
+        firePropertyChange();
     }
 
     /**
@@ -235,6 +242,7 @@ public class DescriptorGroup {
      */
     public void setArtifact(String value) {
         this.artifact = value;
+        firePropertyChange();
     }
 
     /**
@@ -283,6 +291,30 @@ public class DescriptorGroup {
      */
     public void setClassificationSchema(String value) {
         this.classificationSchema = value;
+        firePropertyChange();
     }
 
+    public void addListener(IListener listener) {
+        if (listeners == null) {
+            listeners = new ListenerList();
+        }
+        listeners.add(listener);
+    }
+
+    public void removeListener(IListener listener) {
+        if (listeners != null) {
+            listeners.remove(listener);
+            if (listeners.isEmpty()) {
+                listeners = null;
+            }
+        }
+    }
+
+    private void firePropertyChange() {
+        if (listeners != null) {
+            for (Object listener : listeners.getListeners()) {
+                ((IListener) listener).objectChanged();
+            }
+        }
+    }
 }

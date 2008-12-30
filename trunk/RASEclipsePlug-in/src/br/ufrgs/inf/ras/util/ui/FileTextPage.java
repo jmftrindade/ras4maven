@@ -1,4 +1,4 @@
-package at.ssw.fileeditor.util.ui;
+package br.ufrgs.inf.ras.util.ui;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.text.DocumentEvent;
@@ -175,8 +175,8 @@ public class FileTextPage extends TextEditor implements IFormPage {
 
 	@Override
 	public String getId() {
-		//return editor.getSite().getId() + ".textPage";
-	    return "br.ufrgs.inf.fileeditor.textPage";
+		return editor.getSite().getId() + ".textPage";
+	    //return "br.ufrgs.inf.fileeditor.textPage";
 	}
 
 	@Override
