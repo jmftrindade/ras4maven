@@ -12,7 +12,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.eclipse.core.runtime.ListenerList;
 
 
 /**
@@ -46,6 +49,8 @@ public class Description {
 
     @XmlAttribute
     protected String value;
+    @XmlTransient
+    private ListenerList listeners;    
 
     /**
      * Gets the value of the value property.
@@ -69,6 +74,31 @@ public class Description {
      */
     public void setValue(String value) {
         this.value = value;
+        firePropertyChange();
+    }
+    
+    public void addListener(IListener listener) {
+        if (listeners == null) {
+            listeners = new ListenerList();
+        }
+        listeners.add(listener);
+    }
+
+    public void removeListener(IListener listener) {
+        if (listeners != null) {
+            listeners.remove(listener);
+            if (listeners.isEmpty()) {
+                listeners = null;
+            }
+        }
+    }
+
+    private void firePropertyChange() {
+        if (listeners != null) {
+            for (Object listener : listeners.getListeners()) {
+                ((IListener) listener).objectChanged();
+            }
+        }
     }
 
 }

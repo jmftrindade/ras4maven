@@ -14,7 +14,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.eclipse.core.runtime.ListenerList;
 
 
 /**
@@ -52,6 +55,8 @@ public class Solution {
 
     @XmlElement(name = "artifact", required = true)
     protected List<Artifact> artifacts;
+    @XmlTransient
+    private ListenerList listeners;
 
     /**
      * Gets the value of the artifacts property.
@@ -81,5 +86,5 @@ public class Solution {
         }
         return this.artifacts;
     }
-
+    
 }

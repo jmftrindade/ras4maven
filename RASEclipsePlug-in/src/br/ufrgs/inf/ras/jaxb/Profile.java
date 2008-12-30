@@ -15,7 +15,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.eclipse.core.runtime.ListenerList;
 
 
 /**
@@ -96,7 +99,9 @@ public class Profile {
     protected String requiredAttribute;
     @XmlAttribute
     protected String semanticConstraint;
-
+    @XmlTransient
+    private ListenerList listeners;
+    
     /**
      * Gets the value of the description property.
      * 
@@ -119,6 +124,7 @@ public class Profile {
      */
     public void setDescription(Description value) {
         this.description = value;
+        firePropertyChange();
     }
 
     /**
@@ -201,6 +207,7 @@ public class Profile {
      */
     public void setName(String value) {
         this.name = value;
+        firePropertyChange();
     }
 
     /**
@@ -225,6 +232,7 @@ public class Profile {
      */
     public void setIdHistory(String value) {
         this.idHistory = value;
+        firePropertyChange();
     }
 
     /**
@@ -249,6 +257,7 @@ public class Profile {
      */
     public void setVersionMajor(Integer value) {
         this.versionMajor = value;
+        firePropertyChange();
     }
 
     /**
@@ -273,6 +282,7 @@ public class Profile {
      */
     public void setVersionMinor(Integer value) {
         this.versionMinor = value;
+        firePropertyChange();
     }
 
     /**
@@ -297,6 +307,7 @@ public class Profile {
      */
     public void setArtifact(String value) {
         this.artifact = value;
+        firePropertyChange();
     }
 
     /**
@@ -321,6 +332,7 @@ public class Profile {
      */
     public void setElement(String value) {
         this.element = value;
+        firePropertyChange();
     }
 
     /**
@@ -345,6 +357,7 @@ public class Profile {
      */
     public void setClassificationSchema(String value) {
         this.classificationSchema = value;
+        firePropertyChange();
     }
 
     /**
@@ -369,6 +382,7 @@ public class Profile {
      */
     public void setDependencyKind(String value) {
         this.dependencyKind = value;
+        firePropertyChange();
     }
 
     /**
@@ -393,6 +407,7 @@ public class Profile {
      */
     public void setRequiredElement(String value) {
         this.requiredElement = value;
+        firePropertyChange();
     }
 
     /**
@@ -417,6 +432,7 @@ public class Profile {
      */
     public void setRequiredAttribute(String value) {
         this.requiredAttribute = value;
+        firePropertyChange();
     }
 
     /**
@@ -441,6 +457,32 @@ public class Profile {
      */
     public void setSemanticConstraint(String value) {
         this.semanticConstraint = value;
+        firePropertyChange();
     }
 
+    public void addListener(IListener listener) {
+        if (listeners == null) {
+            listeners = new ListenerList();
+        }
+        listeners.add(listener);
+    }
+
+    public void removeProfileListener(IListener listener) {
+        if (listeners != null) {
+            listeners.remove(listener);
+            if (listeners.isEmpty()) {
+                listeners = null;
+            }
+        }
+    }
+
+    private void firePropertyChange() {
+        if (listeners != null) {
+            for (Object listener : listeners.getListeners()) {
+                ((IListener) listener).objectChanged();
+            }
+        }
+    }
+    
+    
 }

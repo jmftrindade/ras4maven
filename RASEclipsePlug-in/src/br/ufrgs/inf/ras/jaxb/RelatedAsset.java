@@ -12,7 +12,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+
+import org.eclipse.core.runtime.ListenerList;
 
 
 /**
@@ -59,6 +62,8 @@ public class RelatedAsset {
     protected String assetVersion;
     @XmlAttribute
     protected String artifact;
+    @XmlTransient
+    private ListenerList listeners;
 
     /**
      * Gets the value of the description property.
@@ -82,6 +87,7 @@ public class RelatedAsset {
      */
     public void setDescription(Description value) {
         this.description = value;
+        firePropertyChange();
     }
 
     /**
@@ -106,6 +112,7 @@ public class RelatedAsset {
      */
     public void setName(String value) {
         this.name = value;
+        firePropertyChange();
     }
 
     /**
@@ -130,6 +137,7 @@ public class RelatedAsset {
      */
     public void setRelationshipType(String value) {
         this.relationshipType = value;
+        firePropertyChange();
     }
 
     /**
@@ -154,6 +162,7 @@ public class RelatedAsset {
      */
     public void setAssetId(String value) {
         this.assetId = value;
+        firePropertyChange();
     }
 
     /**
@@ -178,6 +187,7 @@ public class RelatedAsset {
      */
     public void setAssetVersion(String value) {
         this.assetVersion = value;
+        firePropertyChange();
     }
 
     /**
@@ -202,6 +212,31 @@ public class RelatedAsset {
      */
     public void setArtifact(String value) {
         this.artifact = value;
+        firePropertyChange();
     }
 
+    public void addListener(IListener listener) {
+        if (listeners == null) {
+            listeners = new ListenerList();
+        }
+        listeners.add(listener);
+    }
+
+    public void removeListener(IListener listener) {
+        if (listeners != null) {
+            listeners.remove(listener);
+            if (listeners.isEmpty()) {
+                listeners = null;
+            }
+        }
+    }
+
+    private void firePropertyChange() {
+        if (listeners != null) {
+            for (Object listener : listeners.getListeners()) {
+                ((IListener) listener).objectChanged();
+            }
+        }
+    }
+    
 }

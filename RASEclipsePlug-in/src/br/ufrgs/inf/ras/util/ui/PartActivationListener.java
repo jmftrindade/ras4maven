@@ -1,4 +1,4 @@
-package at.ssw.fileeditor.util.ui;
+package br.ufrgs.inf.ras.util.ui;
 
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWindowListener;

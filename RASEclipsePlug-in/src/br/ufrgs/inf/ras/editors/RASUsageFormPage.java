@@ -9,18 +9,21 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import br.ufrgs.inf.ras.jaxb.Asset;
+import br.ufrgs.inf.ras.jaxb.Artifact;
 import br.ufrgs.inf.ras.jaxb.IListener;
+import br.ufrgs.inf.ras.jaxb.Usage;
 import br.ufrgs.inf.ras.util.ui.FileFormPage;
 
 /**
  * The UI editor page in a {@link AssetFileEditor}. This page provides a user
  * interface for altering a asset solution from the underlying file.
  */
-public class RASAssetFormPage extends FileFormPage {
-	private Asset asset;
-
-	private Text nameText, versionText, shortDescriptionText;
+public class RASUsageFormPage extends FileFormPage {
+	//private Asset asset;
+	
+	private Usage usage;
+	
+	private Text artifactText;
 
 	/**
 	 * Flag indicating whether the last change of the asset comes directly from
@@ -37,12 +40,10 @@ public class RASAssetFormPage extends FileFormPage {
 			// #setActive(boolean)} if the change comes from the text page
 			setDirty();
 
-			if (!controlChange && nameText != null) {
+			if (!controlChange && artifactText != null) {
 				// update user interface only if the change does not come from
 				// the control itself
-				nameText.setText(asset.getName());
-				versionText.setText(asset.getVersion());
-				shortDescriptionText.setText(asset.getShortDescription());
+				artifactText.setText(usage.getArtifact());
 			}
 			controlChange = false;
 		}
@@ -52,25 +53,22 @@ public class RASAssetFormPage extends FileFormPage {
 		@Override
 		public void modifyText(ModifyEvent e) {
 			controlChange = true;
-			if (e.widget == nameText) {
-				asset.setName(nameText.getText());
-			} else if (e.widget == versionText) {
-				asset.setVersion(versionText.getText());
-			} else {
-				asset.setShortDescription(shortDescriptionText.getText());
+			
+			if (e.widget == artifactText) {
+				usage.setArtifact(artifactText.getText());
 			}
 		}
 	};
 
-	public RASAssetFormPage(AssetFileEditor editor) {
+	public RASUsageFormPage(AssetFileEditor editor) {
 		super(editor);
-		asset = editor.getAsset();
-		asset.addListener(dirtyListener);
+		usage = editor.getAsset().getUsage();
+		usage.addListener(dirtyListener);
 	}
 
 	@Override
 	public void dispose() {
-		asset.removeListener(dirtyListener);
+		usage.removeListener(dirtyListener);
 		super.dispose();
 	}
 
@@ -78,26 +76,17 @@ public class RASAssetFormPage extends FileFormPage {
 	protected void createFormContent(IManagedForm managedForm) {
 		FormToolkit toolkit = managedForm.getToolkit();
 
-		managedForm.getForm().setText("Asset Editor");
+		managedForm.getForm().setText("Usage Editor");
 		toolkit.decorateFormHeading(managedForm.getForm().getForm());
 
 		Composite body = managedForm.getForm().getBody();
 		GridLayoutFactory.swtDefaults().numColumns(2).applyTo(body);
 		toolkit.paintBordersFor(body);
 
-		toolkit.createLabel(body, "Name:");
-		nameText = toolkit.createText(body, asset.getName());
-		nameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		nameText.addModifyListener(modifyListener);
+		toolkit.createLabel(body, "Artifact Name:");
+		artifactText = toolkit.createText(body, usage.getArtifact());
+		artifactText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		artifactText.addModifyListener(modifyListener);
 
-		toolkit.createLabel(body, "Version:");
-		versionText = toolkit.createText(body, asset.getVersion());
-		versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		versionText.addModifyListener(modifyListener);
-
-		toolkit.createLabel(body, "Short Description:");
-		shortDescriptionText = toolkit.createText(body, asset.getShortDescription());
-		shortDescriptionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		shortDescriptionText.addModifyListener(modifyListener);
 	}
 }
