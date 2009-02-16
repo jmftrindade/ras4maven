@@ -1,0 +1,34 @@
+<component-set>
+  <components>
+    <component>
+      <role>org.apache.maven.archiva.consumers.KnownRepositoryContentConsumer</role>
+      <role-hint>index-ras</role-hint>
+      <implementation>org.omg.maven.archiva.consumers.ras.RasConsumer</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+      <description>IndexContentConsumer - generic full file content indexing consumer.</description>
+      <requirements>
+        <requirement>
+          <role>org.apache.maven.archiva.configuration.ArchivaConfiguration</role>
+          <field-name>configuration</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.archiva.configuration.FileTypes</role>
+          <field-name>filetypes</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.archiva.repository.RepositoryContentFactory</role>
+          <field-name>repositoryFactory</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.archiva.indexer.RepositoryContentIndexFactory</role>
+          <role-hint>lucene</role-hint>
+          <field-name>indexFactory</field-name>
+        </requirement>
+      </requirements>
+      <configuration>
+        <id>index-ras</id>
+        <description>RAS Content indexer</description>
+      </configuration>
+    </component>
+  </components>
+</component-set>

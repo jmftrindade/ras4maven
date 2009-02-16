@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.archiva</groupId>
+    <artifactId>archiva-consumers</artifactId>
+    <version>1.2-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>	
+  </parent>
+
+  <artifactId>archiva-ras-consumer</artifactId>
+  <name>archiva-ras-consumer</name>
+  <packaging>jar</packaging>
+ 
+  <dependencies>
+    <dependency>
+    	<groupId>org.codehaus.plexus</groupId>
+    	<artifactId>plexus-spring</artifactId>
+    	<optional>false</optional>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.archiva</groupId>
+    	<artifactId>archiva-repository-layer</artifactId>
+    	<optional>false</optional>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.archiva</groupId>
+    	<artifactId>archiva-consumer-api</artifactId>
+    	<optional>false</optional>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.archiva</groupId>
+    	<artifactId>archiva-configuration</artifactId>
+    	<optional>false</optional>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.archiva</groupId>
+    	<artifactId>archiva-database</artifactId>
+    	<optional>false</optional>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.archiva</groupId>
+    	<artifactId>archiva-indexer</artifactId>
+    	<optional>false</optional>
+    </dependency>
+  </dependencies>
+</project>

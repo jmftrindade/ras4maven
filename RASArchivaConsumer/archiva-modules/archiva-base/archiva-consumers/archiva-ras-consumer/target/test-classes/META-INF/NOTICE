@@ -1,0 +1,78 @@
+// ------------------------------------------------------------------
+// NOTICE file corresponding to the section 4d of The Apache License,
+// Version 2.0, in this case for archiva-ras-consumer
+// ------------------------------------------------------------------
+
+archiva-ras-consumer
+Copyright 2006-2008 The Apache Software Foundation
+
+This product includes/uses software(s) developed by 'an unknown organization'
+  - AOP alliance (http://aopalliance.sourceforge.net)
+  - Unnamed - commons-beanutils:commons-beanutils:jar:1.7.0
+  - Unnamed - commons-digester:commons-digester:jar:1.6
+  - Unnamed - geronimo-spec:geronimo-spec-jta:jar:1.0.1B-rc2
+  - JDO2 API
+  - Unnamed - jdom:jdom:jar:1.0
+  - Ehcache Core (http://ehcache.sf.net/ehcache)
+  - jsr107cache (http://maven.apache.org)
+  - Unnamed - xalan:xalan:jar:2.7.0
+
+This product includes/uses software(s) developed by 'Apache Software Foundation' (http://www.apache.org)
+  - Log4j (http://logging.apache.org/log4j/docs/)
+
+This product includes/uses software(s) developed by 'Apache Software Foundation' (http://www.apache.org/)
+  - Xerces2 Java Parser (http://xerces.apache.org/xerces2-j/)
+  - XML Commons External Components XML APIs (http://xml.apache.org/commons/#external)
+
+This product includes/uses software(s) developed by 'Codehaus' (http://www.codehaus.org)
+  - jaxen (http://jaxen.codehaus.org/)
+
+This product includes/uses software(s) developed by 'Codehaus' (http://www.codehaus.org/)
+  - Plexus Classworlds
+  - Plexus Component API
+  - Plexus Digest / Hashcode Components (http://plexus.codehaus.org/plexus-components/plexus-digest)
+  - Plexus Expression Evaluator Components
+  - Plexus JDO Component
+  - Plexus to Spring Adapter (http://plexus.codehaus.org/plexus-components/plexus-spring)
+  - Plexus Common Utilities (http://plexus.codehaus.org/plexus-utils)
+  - Plexus Cache API
+  - Plexus Cache Provider :: ehcache
+  - Plexus Registry Api (http://plexus.codehaus.org/plexus-components/plexus-registry/plexus-registry-api)
+  - Plexus Registry commons-configuration (http://plexus.codehaus.org/plexus-components/plexus-registry/plexus-registry-providers/plexus-registry-commons)
+
+This product includes/uses software(s) developed by 'Dawid Kurzyniec' (http://www.mathcs.emory.edu/~dawidk/)
+  - Backport of JSR 166 (http://www.mathcs.emory.edu/dcl/util/backport-util-concurrent/)
+
+This product includes/uses software(s) developed by 'MetaStuff Ltd.' (http://sourceforge.net/projects/dom4j)
+  - dom4j (http://dom4j.org)
+
+This product includes/uses software(s) developed by 'QOS.ch' (http://www.qos.ch)
+  - SLF4J API Module (http://www.slf4j.org)
+
+This product includes/uses software(s) developed by 'Spring Framework' (http://www.springframework.org/)
+  - Spring Framework: Beans (http://www.springframework.org)
+  - Spring Framework: Context (http://www.springframework.org)
+  - Spring Framework: Core (http://www.springframework.org)
+
+This product includes/uses software(s) developed by 'The Apache Software Foundation' (http://jakarta.apache.org)
+  - Codec (http://jakarta.apache.org/commons/codec/)
+  - Collections (http://jakarta.apache.org/commons/collections/)
+  - Commons Configuration (http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/)
+  - JXPath (http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/)
+  - Lang (http://jakarta.apache.org/commons/lang/)
+
+This product includes/uses software(s) developed by 'The Apache Software Foundation' (http://www.apache.org/)
+  - Commons IO (http://commons.apache.org/io/)
+  - Archiva Checksum (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-checksum)
+  - Archiva Base :: Common (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-common)
+  - Archiva Base :: Configuration (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-configuration)
+  - Archiva Consumer API (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-consumers/archiva-consumer-api)
+  - Archiva Database (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-database)
+  - Archiva Base :: Indexer (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-indexer)
+  - Archiva Base :: Model (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-model)
+  - Archiva Base :: Policies (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-policies)
+  - Archiva Repository Interface Layer (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-repository-layer)
+  - Archiva Base :: XML Tools (http://archiva.apache.org/ref/1.2-SNAPSHOT/archiva-base/archiva-xml-tools)
+  - Lucene Core (http://lucene.apache.org/java/lucene-core)
+
+
