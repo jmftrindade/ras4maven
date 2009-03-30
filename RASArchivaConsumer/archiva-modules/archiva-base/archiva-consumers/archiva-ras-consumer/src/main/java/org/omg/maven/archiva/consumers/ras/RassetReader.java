@@ -8,10 +8,32 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.xml.xpath.*;
+
 import org.xml.sax.InputSource;
 
 public class RassetReader {
 
+	public class PackageInfo{
+		public final static String ID_XPATH = "/@id";
+		public final static String VERSION_XPATH = "/@version";
+		String id;
+		String version;
+		
+		public void setId(String _id){
+			id = _id;
+		}
+		public String getId(){
+			return id;
+		}
+		public void setVersion(String _version){
+			version = _version;
+		}
+		public String getVersion(){
+			return version;
+		}
+		
+	}
+	
 	final String RAS_FILE = "rasset.xml";
 	private List<String> xpaths;
 
@@ -70,5 +92,30 @@ public class RassetReader {
 		return xpaths;
 	}
 	
+	
+	public PackageInfo getInfo(File zipFile) throws IOException, XPathExpressionException
+	{
+		String rasFile = extractRasFile(zipFile);
+		
+		File doc = new File(rasFile);
+		XPathFactory factory = XPathFactory.newInstance();
+		PackageInfo info = new PackageInfo();
+		
+		
+		InputSource sourceId = new InputSource(new FileInputStream(doc));
+		XPath pathId = factory.newXPath();
+		String value = pathId.evaluate(PackageInfo.ID_XPATH, sourceId);
+		if (value != null)
+			info.setId(value);
+		
+		InputSource sourceVersion = new InputSource(new FileInputStream(doc));
+		XPath pathVersion = factory.newXPath();
+		value = pathVersion.evaluate(PackageInfo.VERSION_XPATH, sourceVersion);
+		if (value != null)
+			info.setVersion(value);		
+
+		doc.delete();
+		return info;
+	}
 	
 }
