@@ -35,7 +35,12 @@ import org.apache.commons.codec.Decoder;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
+import org.apache.maven.archiva.database.ArchivaDAO;
 import org.apache.maven.archiva.database.ArchivaDatabaseException;
+import org.apache.maven.archiva.indexer.search.CrossRepositorySearch;
+import org.apache.maven.archiva.indexer.search.SearchResultHit;
+import org.apache.maven.archiva.indexer.search.SearchResultLimits;
+import org.apache.maven.archiva.indexer.search.SearchResults;
 import org.apache.maven.archiva.security.AccessDeniedException;
 import org.apache.maven.archiva.security.ArchivaRoleConstants;
 import org.apache.maven.archiva.security.ArchivaSecurityException;
@@ -62,7 +67,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class RasSearchServlet
     extends HttpServlet
 {
-    public static final String MIME_TYPE = "application/xml; charset=UTF-8";
+    public static final String MIME_TYPE = "text; charset=UTF-8";
 
     private static final String COULD_NOT_AUTHENTICATE_USER = "Could not authenticate user";
 
@@ -79,6 +84,10 @@ public class RasSearchServlet
     private HttpAuthenticator httpAuth;
     
     private ArchivaXworkUser archivaXworkUser;
+    
+    private ArchivaDAO dao;
+    
+    private CrossRepositorySearch crossRepo;
 
     public void init( javax.servlet.ServletConfig servletConfig )
         throws ServletException
@@ -93,13 +102,40 @@ public class RasSearchServlet
             (HttpAuthenticator) wac.getBean( PlexusToSpringUtils.buildSpringId( HttpAuthenticator.ROLE, "basic" ) );
         archivaXworkUser = (ArchivaXworkUser) wac.getBean( PlexusToSpringUtils.buildSpringId( ArchivaXworkUser.class ) );
 		//instantiate DAO
+        dao = (ArchivaDAO)wac.getBean(PlexusToSpringUtils.buildSpringId(ArchivaDAO.class.getName(),"jdo"));
+        
+        crossRepo = (CrossRepositorySearch)wac.getBean(PlexusToSpringUtils.buildSpringId(CrossRepositorySearch.class.getName(), "default"));
     }
 
     public void doGet( HttpServletRequest req, HttpServletResponse res )
         throws ServletException, IOException
     {
-    	String path = req.getParameter("path");
-        res.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, path);
+    	String keywords = req.getParameter("keyword");
+    	SearchResultLimits limits = new SearchResultLimits(0);
+    	limits.setPageSize(100);
+    	//limits.setSelectedPage(SearchResultLimits.ALL_PAGES);
+    	
+        
+        List<String> repos = getObservableRepos( archivaXworkUser.getGuest());
+        SearchResults results = crossRepo.searchForTerm(archivaXworkUser.getGuest(), repos, keywords, limits);
+        
+        String body = new String();
+        List<SearchResultHit> hits = results.getHits();
+        for(SearchResultHit sh: hits)
+        {
+        	body += "Artifact Reference: ";
+        	body += sh.getGroupId() + ".";
+        	body += sh.getArtifactId() + ".";
+        	body += sh.getVersion() + "\n";
+        }
+        	
+        
+        res.setContentType(MIME_TYPE);
+        res.setContentLength(body.length());
+        res.getWriter().print(body);
+
+        //res.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, keywords);
+        
 //        try
 //        {
 //			//Find 
