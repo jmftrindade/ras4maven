@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="RAS_RepositoryAssetDescriptor"
-    targetNamespace="http://www.ufrgs.inf.br/RAS/RepositoryAssetDescriptor"
+<xs:schema id="RAS_RepositoryService"
+    targetNamespace="http://www.ufrgs.inf.br/RAS/RepositoryService"
     elementFormDefault="qualified"
-    xmlns="http://www.ufrgs.inf.br/RAS/RepositoryAssetDescriptor"
-    xmlns:mstns="http://www.ufrgs.inf.br/RAS/RepositoryAssetDescriptor"
+    xmlns="http://www.ufrgs.inf.br/RAS/RepositoryService"
+    xmlns:ras="http://www.ufrgs.inf.br/RAS/RepositoryService"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xml:lang="pt-br"
 >
@@ -43,13 +43,44 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="RepositoryAssetDescriptorCollection">
+  <xs:element name="RepositoryFolderDescriptor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Name" type="xs:string">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="LogicalPath" type="xs:string">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RepositoryDataDescriptor">
     <xs:annotation>
       <xs:documentation>Coleção de descritores de repositório</xs:documentation>
     </xs:annotation>
     <xs:complexType>
+      <xs:choice maxOccurs="1">
+        <xs:element ref="ras:RepositoryAssetDescriptor"/>
+        <xs:element ref="ras:RepositoryFolderDescriptor"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchByKeyword">
+    <xs:complexType>
       <xs:sequence>
-        <xs:element ref="mstns:RepositoryAssetDescriptor" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element ref="ras:RepositoryAssetDescriptor" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchByLogicalPath">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ras:RepositoryDataDescriptor" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
