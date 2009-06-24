@@ -7,81 +7,80 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xml:lang="pt-br"
 >
-  <xs:element name="RepositoryAssetDescriptor">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Name" type="xs:string">
-          <xs:annotation>
-            <xs:documentation>Mapeia para o atributo name do elemento asset do RAS</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="Description" type="xs:string">
-          <xs:annotation>
-            <xs:documentation>Mapeia para o atributo short-description do elemento asset do RAS</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="Url" type="xs:anyURI">
-          <xs:annotation>
-            <xs:documentation>URL para o ativo (recuperando esta URL deve trazer o arquivo .ras)</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="LogicalPath" type="xs:anyURI">
-          <xs:annotation>
-            <xs:documentation>Caminho lógico do ativo no repositório</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="Version" type="xs:string">
-          <xs:annotation>
-            <xs:documentation>Mapeia para o atributo version do element asset do RAS</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="Ranking" type="xs:int">
-          <xs:annotation>
-            <xs:documentation>Valor entre 0 e 100, com 100 sendo o melhor acerto</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RepositoryFolderDescriptor">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Name" type="xs:string">
-          <xs:annotation>
-            <xs:documentation></xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="LogicalPath" type="xs:string">
-          <xs:annotation>
-            <xs:documentation></xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RepositoryDataDescriptor">
-    <xs:annotation>
-      <xs:documentation>Coleção de descritores de repositório</xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:choice maxOccurs="1">
-        <xs:element ref="ras:RepositoryAssetDescriptor"/>
-        <xs:element ref="ras:RepositoryFolderDescriptor"/>
-      </xs:choice>
-    </xs:complexType>
-  </xs:element>
+  <xs:complexType name="RepositoryDataDescriptor"/>
+  
+  <xs:complexType name="RepositoryAssetDescriptor">
+    <xs:complexContent>
+      <xs:extension base="ras:RepositoryDataDescriptor">
+        <xs:sequence>
+          <xs:element name="Name" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Mapeia para o atributo name do elemento asset do RAS</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Description" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Mapeia para o atributo short-description do elemento asset do RAS</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Url" type="xs:anyURI">
+            <xs:annotation>
+              <xs:documentation>URL para o ativo (recuperando esta URL deve trazer o arquivo .ras)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LogicalPath" type="xs:anyURI">
+            <xs:annotation>
+              <xs:documentation>Caminho lógico do ativo no repositório</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Version" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Mapeia para o atributo version do element asset do RAS</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Ranking" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>Valor entre 0 e 100, com 100 sendo o melhor acerto</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>    
+  </xs:complexType>
+
+  <xs:complexType name="RepositoryFolderDescriptor">
+    <xs:complexContent>
+      <xs:extension base="ras:RepositoryDataDescriptor">
+        <xs:sequence>
+          <xs:element name="Name" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Nome da pasta</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LogicalPath" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Caminho lógico no repositório</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
   <xs:element name="SearchByKeyword">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="ras:RepositoryAssetDescriptor" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="RepositoryAssetDescriptor" type="ras:RepositoryAssetDescriptor" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
   <xs:element name="SearchByLogicalPath">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="ras:RepositoryDataDescriptor" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="RepositoryAssetDescriptor" type="ras:RepositoryAssetDescriptor"/>
+        <xs:element name="RepositoryFolderDescriptor" type="ras:RepositoryFolderDescriptor"/>
+      </xs:choice>
     </xs:complexType>
   </xs:element>
 </xs:schema>
