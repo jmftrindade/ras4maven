@@ -149,12 +149,12 @@
 			<xsl:value-of select="b:City"/>
 			<xsl:text>: </xsl:text>
 			<xsl:value-of select="b:Publisher"/>
-			<xsl:text>,</xsl:text>
+			<xsl:text>, </xsl:text>
 			<xsl:value-of select="b:Year"/>
-			<xsl:text>.</xsl:text>
+			<xsl:text>. </xsl:text>
 			<xsl:if test="string-length(b:Pages)>0">
 				<xsl:value-of select="b:Pages"/>
-				<xsl:text>. </xsl:text>
+				<xsl:text>.</xsl:text>
 			</xsl:if>
 		</p>
 	</xsl:template>
@@ -169,7 +169,7 @@
 			<xsl:value-of select="b:Title"/>
 			<xsl:text>. </xsl:text>
 			<xsl:value-of select="b:Year"/>
-			<xsl:text>.</xsl:text>
+			<xsl:text>. </xsl:text>
 			<xsl:if test="string-length(b:Pages)>0">
 				<xsl:value-of select="b:Pages"/>
 				<xsl:text> f. </xsl:text>
@@ -179,8 +179,10 @@
 			<xsl:value-of select="b:Department"/>
 			<xsl:text>, </xsl:text>
 			<xsl:value-of select="b:Institution"/>
-			<xsl:text>, </xsl:text>
-			<xsl:value-of select="b:City"/>
+			<xsl:if test="string-length(b:City)>0">
+				<xsl:text>, </xsl:text>
+				<xsl:value-of select="b:City"/>
+			</xsl:if>
 			<xsl:text>.</xsl:text>
 		</p>
 	</xsl:template>
@@ -196,12 +198,18 @@
 			<xsl:value-of select="b:Title"/>
 			<xsl:text>. </xsl:text>
 			<xsl:value-of select="b:PeriodicalTitle"/>
-			<xsl:text>, </xsl:text>
-			<xsl:value-of select="b:City"/>
-			<xsl:text>, v.</xsl:text>
-			<xsl:value-of select="b:Volume"/>
-			<xsl:text>, n.</xsl:text>
-			<xsl:value-of select="b:Issue"/>
+			<xsl:if test="string-length(b:City)>0">
+				<xsl:text>, </xsl:text>
+				<xsl:value-of select="b:City"/>
+			</xsl:if>
+			<xsl:if test="string-length(b:Volume)>0">
+				<xsl:text>, v.</xsl:text>
+				<xsl:value-of select="b:Volume"/>
+			</xsl:if>
+			<xsl:if test="string-length(b:Issue)>0">
+				<xsl:text>, n.</xsl:text>
+				<xsl:value-of select="b:Issue"/>
+			</xsl:if>
 			<xsl:text>, p.</xsl:text>
 			<xsl:value-of select="b:Pages"/>
 			<xsl:text>, </xsl:text>
