@@ -140,7 +140,9 @@
 				<xsl:value-of select="b:Author/b:Author/b:NameList/b:Person/b:First"/>
 			</xsl:if>
 			<xsl:text>. </xsl:text>
+			<b>
 			<xsl:value-of select="b:Title"/>
+			</b>
 			<xsl:text>. </xsl:text>
 			<xsl:if test="string-length(b:Edition)>0">
 				<xsl:value-of select="b:Edition"/>
@@ -166,7 +168,9 @@
 				<xsl:value-of select="b:Author/b:Author/b:NameList/b:Person/b:First"/>
 			</xsl:if>
 			<xsl:text>. </xsl:text>
+			<b>
 			<xsl:value-of select="b:Title"/>
+			</b>
 			<xsl:text>. </xsl:text>
 			<xsl:value-of select="b:Year"/>
 			<xsl:text>. </xsl:text>
@@ -195,7 +199,9 @@
 				<xsl:value-of select="b:Author/b:Author/b:NameList/b:Person/b:First"/>
 			</xsl:if>
 			<xsl:text>. </xsl:text>
+			<b>
 			<xsl:value-of select="b:Title"/>
+			</b>
 			<xsl:text>. </xsl:text>
 			<xsl:value-of select="b:PeriodicalTitle"/>
 			<xsl:if test="string-length(b:City)>0">
@@ -228,7 +234,9 @@
 				<xsl:value-of select="b:Author/b:Author/b:NameList/b:Person/b:First"/>
 			</xsl:if>
 			<xsl:text>. </xsl:text>
+			<b>
 			<xsl:value-of select="b:Title"/>
+			</b>
 			<xsl:text>. Palestra ministrada no </xsl:text>
 			<xsl:value-of select="b:ConferenceName"/>
 			<xsl:text>, </xsl:text>
@@ -247,7 +255,9 @@
 				<xsl:value-of select="b:Author/b:Author/b:NameList/b:Person/b:First"/>
 			</xsl:if>
 			<xsl:text>. </xsl:text>
+			<b>
 			<xsl:value-of select="b:Title"/>
+			</b>
 			<xsl:text>. Acessado em (</xsl:text>
 			<xsl:value-of select="b:YearAccessed"/>
 			<xsl:text>). Disponível em </xsl:text>
